@@ -33,11 +33,11 @@ cnt_inside = 0
 cnt_total=0
 
 # Fetch the service account key JSON file contents
-cred = credentials.Certificate('esp32tofirebase-a5fda-firebase-adminsdk-zs1e0-af2bd074bb.json')
+cred = credentials.Certificate('INSERT FIREBASE CREDENTIAL')
 
 # Initialize the app with a service account, granting admin privileges
 firebase_admin.initialize_app(cred, {
-    'databaseURL': 'https://esp32tofirebase-a5fda-default-rtdb.asia-southeast1.firebasedatabase.app/'
+    'databaseURL': ''
 })
 
 # Get a reference to the database
