@@ -19,15 +19,15 @@ logger = logging.getLogger(__name__)
 # configure the database
 connection = pymysql.connect(
     host='localhost',
-    user='Admin1',
-    password='password',
-    db='inspectdb',
+    user='username',
+    password='pass',
+    db='databasename',
     charset='utf8mb4',
     cursorclass=pymysql.cursors.DictCursor
 )
 
 # function to check if user is logged in
-app.secret_key = 'imxxdani'
+app.secret_key = ''
 
 def is_logged_in():
     return 'username' in session
