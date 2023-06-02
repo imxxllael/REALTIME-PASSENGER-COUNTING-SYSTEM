@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<head>
+    <meta charset="utf-8">
+    <title>Realtime GPS Tracker</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/location.css') }}">
+
+</head>
+
+<body>
+    <div class="exit">
+      <a href="{{ url_for('dashboard') }}">Exit</a>
+    </div>
+
+    </div>
+
+    <div id="map-container">
+        <div id="map"></div>
+    </div>
+
+    <div class="bus-select">
+        <select id="bus-select" title="Select a Bus">
+            <option value="">Select Bus</option>
+            <option value="bus1">Bus 1</option>
+            <option value="bus2">Bus 2</option>
+            <option value="bus3">Bus 3</option>
+        </select>
+    </div>
+
+
+    <script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-database.js"></script>
+    <script>
+        // Replace with your Firebase project's config
+        var firebaseConfig = {
+          apiKey: "AIzaSyBSte6sJaXbnZn2QrFwhufrZFJYKbYxGuw",
+          authDomain: "esp32tofirebase-a5fda.firebaseapp.com",
+          databaseURL: "https://esp32tofirebase-a5fda-default-rtdb.asia-southeast1.firebasedatabase.app",
+          projectId: "esp32tofirebase-a5fda",
+          storageBucket: "esp32tofirebase-a5fda.appspot.com",
+          messagingSenderId: "667667150188",
+          appId: "1:667667150188:web:e8e57077ca63af72026f49"
+        
+        };
+        firebase.initializeApp(firebaseConfig);
+        var map;
+var marker;
+var latitudeElement = document.getElementById('latitude');
+var longitudeElement = document.getElementById('longitude');
+var totalEnteredElement = document.getElementById('total-entered');
+var totalExitElement = document.getElementById('total-exit');
+var remainingElement = document.getElementById('remaining');
+var busSelect = document.getElementById('bus-select');
+
+function initMap() {
+  map = new google.maps.Map(document.getElementById('map'), {
+    center: {
+      lat: 0,
+      lng: 0
+    },
+    zoom: 12
+  });
+  marker = new google.maps.Marker({
+    map: map,
+    position: {
+      lat: 0,
+      lng: 0
+    }
+  });
+}
+
+// Update marker position and table data when bus is selected
+busSelect.addEventListener('change', function () {
+  var selectedBus = this.value;
+  if (selectedBus) {
+    // Get bus data from Firebase database
+    var busRef = firebase.database().ref('/GPS');
+    busRef.on('value', function (snapshot) {
+      var location = snapshot.val();
+      if (location) {
+        // Update marker position and table data
+        var latitude = location.f_latitude;
+        var longitude = location.f_longitude;
+        latitudeElement.innerText = latitude;
+        longitudeElement.innerText = longitude;
+        marker.setPosition({
+          lat: parseFloat(latitude),
+          lng: parseFloat(longitude)
+        });
+        map.setCenter({
+          lat: parseFloat(latitude),
+          lng: parseFloat(longitude)
+        });
+
+        // Get count data from Firebase database
+        var countRef = firebase.database().ref('/Passenger');
+        countRef.on('value', function (snapshot) {
+          var counts = snapshot.val();
+          if (counts) {
+            // Update table data
+            var totalEntered = counts.enter || 0;
+            var totalExit = counts.exit || 0;
+            var remaining = totalEntered - totalExit;
+            totalEnteredElement.innerText = totalEntered;
+            totalExitElement.innerText = totalExit;
+            remainingElement.innerText = remaining;
+          } else {
+            // Reset table data if count data is not available
+            totalEnteredElement.innerText = '0';
+            totalExitElement.innerText = '0';
+            remainingElement.innerText = '0';
+          }
+        });
+      } else {
+        // Reset marker position and table data if bus data is not available
+        latitudeElement.innerText = '-';
+        longitudeElement.innerText = '-';
+        totalEnteredElement.innerText = '0';
+        totalExitElement.innerText = '0';
+        remainingElement.innerText = '0';
+        marker.setPosition({
+          lat: 0,
+          lng: 0
+        });
+        map.setCenter({
+          lat: 0,
+          lng: 0
+        });
+      }
+    });
+  } else {
+    // Reset marker position and table data if no bus is selected
+    latitudeElement.innerText = '-';
+    longitudeElement.innerText = '-';
+    totalEnteredElement.innerText = '0';
+    totalExitElement.innerText = '0';
+    remainingElement.innerText = '0';
+    marker.setPosition({
+      lat: 0,
+      lng: 0
+    });
+    map.setCenter({
+      lat: 0,
+      lng: 0
+    });
+  }
+});
+
+// Refresh the data every second
+setInterval(function() {
+  var selectedBus = busSelect.value;
+  if (selectedBus) {
+    var busRef = firebase.database().ref('/GPS');
+    busRef.once('value').then(function (snapshot) {
+      var location = snapshot.val();
+      if (location) {
+        var latitude = location.f_latitude;
+        var longitude = location.f_longitude;
+        latitudeElement.innerText = latitude;
+        longitudeElement.innerText = longitude;
+        marker.setPosition({
+            lat: parseFloat(latitude),
+            lng: parseFloat(longitude)
+          });
+        map.setCenter({
+          lat: parseFloat(latitude),
+          lng: parseFloat(longitude)
+          }); 
+          var countRef = firebase.database().ref('/Passenger');
+    countRef.once('value').then(function (snapshot) {
+      var counts = snapshot.val();
+      if (counts) {
+        var totalEntered = counts.enter || 0;
+        var totalExit = counts.exit || 0;
+        var remaining = totalEntered - totalExit;
+        totalEnteredElement.innerText = totalEntered;
+        totalExitElement.innerText = totalExit;
+        remainingElement.innerText = remaining;
+      } else {
+        totalEnteredElement.innerText = '0';
+        totalExitElement.innerText = '0';
+        remainingElement.innerText = '0';
+      }
+    });
+  } else {
+    latitudeElement.innerText = '-';
+    longitudeElement.innerText = '-';
+    totalEnteredElement.innerText = '0';
+    totalExitElement.innerText = '0';
+    remainingElement.innerText = '0';
+    marker.setPosition({
+      lat: 0,
+      lng: 0
+    });
+    map.setCenter({
+      lat: 0,
+      lng: 0
+    });
+  }
+});
+map.setCenter({
+lat: 0,
+lng: 0
+});
+}
+}, 1000);
+</script>
+
+<script async defer
+src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCCngmkulmvR6YTwWB4Ks_A7MpXVYR8MY8&callback=initMap">
+</script>
+</body>
+<body>
+	<div>
+		{% extends 'base.html' %}{% block content %}
+			<img id="map-container" src="{{ url_for('video_feed') }}" alt="stream">
+		{% endblock %}
+		</div>
+</body>
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styledoc.css') }}">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <title>Admin Dashboard</title>
+    <script>
+        $(document).ready(function() {
+            $("#deleteButton").on("click", function() {
+                var selectedIds = [];
+                $(".deleteCheckbox:checked").each(function() {
+                    selectedIds.push($(this).data("id"));
+                });
+    
+                if (selectedIds.length > 0) {
+                    var confirmation = confirm("Are you sure you want to delete the selected rows?");
+                    if (confirmation) {
+                        $.ajax({
+                            type: "GET",
+                            url: "/bus",
+                            data: { delete_id: selectedIds },
+                            success: function() {
+                                $("#buses-table-body").load(location.href + " #buses-table-body>*", "");
+                            },
+                            error: function() {
+                                alert("Error occurred while deleting rows.");
+                            }
+                        });
+                    }
+                } else {
+                    alert("Please select at least one row to delete.");
+                }
+            });
+    
+            $("#submitButton").on("click", function(e) {
+                e.preventDefault(); // Prevent form submission
+    
+                var form = $(this).closest("form");
+    
+                $.ajax({
+                    type: form.attr("method"),
+                    url: "/bus",
+                    data: form.serialize(),
+                    success: function() {
+                        $("#buses-table-body").load(location.href + " #buses-table-body>*", ""); // Reload the table data
+                        form[0].reset(); // Reset the form after successful submission
+                        form.find("p.success").remove(); // Remove any existing success message
+                        form.prepend("<p class='success'>New record created successfully</p>");
+                    },
+                    error: function() {
+                        alert("Error occurred while submitting the form.");
+                    }
+                });
+            });
+        });
+    </script>
+    
+</head>
+<body>
+    <div class="containerA">
+        <div class="form-container">
+            <form method="post" enctype="multipart/form-data" action="/add"> <!-- Update the form action URL -->
+                <h2>Enter Bus Information</h2>
+                <label for="bus_number">Bus Number:</label>
+                <input type="text" id="bus_number" name="bus_number" required>
+
+                <label for="capacity">Capacity:</label>
+                <input type="text" id="capacity" name="capacity" required>
+
+                <label for="route">Route:</label>
+                <input type="text" id="route" name="route" required>
+
+                <label for="driver_name">Driver Name:</label>
+                <input type="text" id="driver_name" name="driver_name" required>
+
+                <label for="driver_contact">Driver Contact:</label>
+                <input type="text" id="driver_contact" name="driver_contact" required>
+
+                <button type="submit" id="submitButton">Submit</button>
+            </form>
+        </div>
+        <div class="dashboardA">
+            <form method="post" enctype="multipart/form-data" action="#">
+                <h2>BUS INFORMATION</h2>
+                <table id="busTable">
+                    <thead>
+                        <tr>
+                            <th>SELECT</th>
+                            <th>Bus_number</th>
+                            <th>Capacity</th>
+                            <th>Route</th>
+                            <th>Driver_Name</th>
+                            <th>Driver_Contact</th>
+                        </tr>
+                    </thead>
+<tbody id="buses-table-body">
+    {% for row in result %}
+    <tr>
+        <td>
+            <input type="checkbox" class="deleteCheckbox" data-id="{{ row['id'] }}">
+        </td>
+        <td>{{ row['bus_number'] }}</td>
+        <td>{{ row['capacity'] }}</td>
+        <td>{{ row['route'] }}</td>
+        <td>{{ row['driver_name'] }}</td>
+        <td>{{ row['driver_contact'] }}</td>
+        <td>
+            <form method="POST" action="/bus/update">
+                <input type="hidden" name="id" value="{{ row['id'] }}">
+                <input type="text" name="bus_number" value="{{ row['bus_number'] }}">
+                <input type="text" name="capacity" value="{{ row['capacity'] }}">
+                <input type="text" name="route" value="{{ row['route'] }}">
+                <input type="text" name="driver_name" value="{{ row['driver_name'] }}">
+                <input type="text" name="driver_contact" value="{{ row['driver_contact'] }}">
+                <button type="submit">Update</button>
+            </form>
+        </td>
+    </tr>
+{% endfor %}
+
+</tbody>
+
+                </table>
+                <button type="button" id="deleteButton">Delete</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

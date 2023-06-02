@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/travellogs.css') }}">
+  <title>Travel-Logs Report</title>
+</head>
+<body>
+  <div class="paper">
+    <div class="header">
+      TRAVEL-LOGS REPORT
+    </div>
+    <button class="print-button" onclick="window.print()">PRINT</button>
+    <div id="bus-info">
+      <!-- Content will be added dynamically -->
+    </div>
+    <hr>
+  </div>
+  <div class="bus-select">
+    <select id="select" title="Select a Bus" onchange="getBusInfo(this.value)">
+      <option value="">Select Bus</option>
+      <option value="bus1">Bus 1</option>
+    </select>
+  </div>
+
+  <script>
+    function getBusInfo(busValue) {
+      if (busValue === '') {
+        document.getElementById('bus-info').innerHTML = ''; // Clear the content when no bus is selected
+        return;
+      }
+
+      // Fetch the log file contents
+      fetch('/log')
+        .then(response => response.text())
+        .then(data => {
+          document.getElementById('bus-info').innerText = data; // Update the content with the log file data
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          document.getElementById('bus-info').innerText = 'Error fetching log data.'; // Display an error message
+        });
+    }
+  </script>
+</body>
+</html>

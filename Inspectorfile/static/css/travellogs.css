@@ -1,0 +1,117 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,500;1,600&display=swap');
+
+body {
+    margin: 0;
+    padding: 20px;
+    font-family: 'Poppins', "Helvetica Neue",;
+  }
+  .bus-info {
+    margin-left: 200px;
+    margin-right:200px;
+    text-align: justify;
+  }
+  
+  .bus-info h2 {
+    text-align: center;
+  }
+  
+  .bus-info p {
+    text-align: justify,center;
+    display: flex;
+    justify-content: space-between;
+  }
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
+  .paper {
+    background-color: white;
+    width: 8.5in;
+    height: 14in;
+    margin: 0 auto;
+    position: relative;
+    border: 1px solid #ccc;
+    overflow: auto;
+    border-color: black;
+    margin-top: 50px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+  @media print {
+    body * {
+      visibility: hidden;
+    }
+    .paper, .paper * {
+      visibility: visible;
+    }
+    .paper {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 8.5in;
+      height: 14in;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      page-break-after:ALWAYS;
+    }
+    .print-button {
+      display: none;
+    }
+    @page {
+      size: 8.5in 14in;
+      margin: 0;
+    }
+  }
+  .header {
+    position: absolute;
+    top: 0;
+    padding: 20px;
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+
+  .print-button {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #373838;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  .print-button:hover {
+    background-color: #0e1c2b;
+  }
+  select {
+    text-align: center;
+    border-radius: 10px;
+    background-color: #f5f5f5;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.05);
+    font-size: 15px;
+    color: #363535;
+  }  .bus-select {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 40px;
+    max-width: 300px;
+    width: 90%;
+    padding: 10px;
+    background-color: #ffffff;
+    text-decoration: none;
+    font-size: 14px;
+    border-color: #121212;
+  }
+  
+  
+  #bus-select {
+    width: 100%;
+    padding: 5px;
+    font-size: 16px;
+    height: 40px;
+  }
+  

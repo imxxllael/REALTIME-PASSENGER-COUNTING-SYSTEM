@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Login -RBI</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/login.css') }}">
+</head>
+<body>
+<div class="grid-container">
+  <div class="image">
+  <img src="{{ url_for('static', filename='images/index-img.png') }}" alt="Camera">
+  </div>
+  <div class="form-container">
+	<form method="post">
+    <img src="{{ url_for('static', filename='images/bus_logo.png') }}" alt="Bus Logo">
+    <h2>REAL-TIME BUS INSPECTOR</h2>
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" title="Enter your username" placeholder="e.g. john.doe" required>
+		<label for="password">Password:</label>
+		<input type="password" name="password" id="password" placeholder="Enter your password" required>
+		<div>
+  			<input type="submit" name="login" value="Login">
+		</div>
+
+	</form>
+	</div>
+</div>

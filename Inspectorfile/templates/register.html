@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/register.css') }}">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Register</title>
+</head>
+<body>
+<body>
+<div class="grid-container">
+
+	<div class="image">
+		<img  class="bus"src="{{ url_for('static', filename='images/index-img.png') }}" alt="Bus Logo">
+	  </div>
+
+	<form method="post">
+	    <img  class="bus"src="{{ url_for('static', filename='images/bus_logo.png') }}" alt="Bus Logo">
+    <h2>REAL-TIME BUS INSPECTOR</h2>
+		<label for="name">Name:</label>
+		<input type="text" name="name" placeholder="Name"required>
+		<label for="username">Username:</label>
+		<input type="text" name="username" placeholder="Username" required>
+		<label for="email">Email:</label>
+		<input type="email" name="email" placeholder="example@gmail.com" required>
+		<label for="password">Password:</label>
+		<input type="password" name="password" placeholder="Password" required>
+		<div>
+		<input type="submit" name="register" value="Register">
+		</div>
+	</form>
+	

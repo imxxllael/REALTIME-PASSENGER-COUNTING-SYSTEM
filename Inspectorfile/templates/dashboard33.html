@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/dashstyle.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styledoc.css') }}">
+    <!-- ICONSCOUT -->
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    
+    <title>Admin Dashboard</title>
+</head>
+<body>
+  <nav>
+      <div class="logo-name">
+          <div class="logo-image">
+            <img src="{{ url_for('static', filename='images/bus_logo.png') }}" alt="Logo">
+          </div>
+          <div class="logo_name">Real-time Bus Inspector</div>
+      </div>
+      <div class="items">
+          <ul class="nav-links">
+              <li>
+                  <a href="#" class="active" data-container="dashboard">
+                      <i class="uil uil-dashboard"></i>
+                      <span class="link-name">Dashboard</span>
+                  </a>
+              </li>
+              <li>
+                  <a href="#" class="active" data-container="passenger">
+                      <i class="uil uil-users-alt"></i>
+                      <span class="link-name">Livestream</span>
+                  </a>
+              </li>
+              <li>
+                  <a href="#" data-container="location">
+                      <i class="uil uil-map-pin-alt"></i>
+                      <span class="link-name">Location</span>
+                  </a>
+              </li>
+              <li>
+                  <a href="#" data-container="travel-logs">
+                      <i class="uil uil-schedule"></i>
+                      <span class="link-name">Travel-Logs</span>
+                  </a>
+              </li>
+              <li>
+                  <a href="#" data-container="buses">
+                      <i class="uil uil-bus"></i>
+                      <span class="link-name">Buses</span>
+                  </a>
+              </li>
+          </ul>
+          <ul class="logout">
+              <li>
+                <a href="{{ url_for('index') }}">
+                      <i class="uil uil-sign-out-alt"></i>
+                      <span class="link-name">Logout</span>
+                  </a>
+              </li>
+          </ul>
+      </div>
+  </nav>
+
+  <section class="dashboard"> 
+      <div class="top">
+          <i class="uil uil-bars sidebar-toggle"></i>
+      </div>
+
+      <div class="container" id="dashboard-container">
+          <div class="container-header">
+              <span>REAL-TIME BUS INSPECTOR</span>
+          </div>
+          <div class="container-body">
+              <div class="photo">
+                <img src="{{ url_for('static', filename='images/busback.jpg') }}" alt="Logo">
+              </div>
+              <div class="dashboard-content">
+                  <div class="greeting">
+                      <span id="greeting-text"></span>
+                  </div>
+                  <div class="datetime">
+                  <span id="time"></span>
+              </div>
+              <div class="datetime">
+                  <span id="date"></span>
+              </div>
+              </div>
+          </div>
+      </div>
+
+
+      </div>
+
+      <div class="container" id="location-container" style="display: none;">
+          <div class="container-body">
+              {% include 'newlocation.html' %}
+          </div>
+      </div>
+
+      <div class="container" id="travel-logs-container" style="display: none;">
+          <div class="container-body">
+              {% include 'travellogs.html' %}
+          </div>
+      </div>
+
+      <div class="container" id="buses-container" style="display: none;">
+          <div class="container-body">
+              {% include 'buses.html' %}
+          </div>
+      </div>
+
+      <div class="container" id="passenger-container" style="display: none;">
+        <div class="container-body">
+            {% include 'passenger.html' %}
+        </div>
+  </section>
+  <script>
+    const body = document.querySelector("body");
+    sidebar = body.querySelector("nav");
+    sidebarToggle = body.querySelector(".sidebar-toggle");
+
+    sidebarToggle.addEventListener("click", () => {
+        sidebar.classList.toggle("close");
+    });
+</script>
+
+  <script src="{{ url_for('static', filename='js/date-time.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/navlinks.js') }}"></script>
+  
+</body>
+</html>

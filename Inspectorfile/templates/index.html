@@ -1,0 +1,55 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/index.css') }}">
+    <title>Dashboard</title>
+    <style>
+
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <div class="dashboard-img"></div>
+        <div class="dashboard-text">REAL-TIME BUS INSPECTOR AND MONITORING SYSTEM</div>
+        <div class="dashboard-buttons">
+            <button id="signupButton">Sign Up</button>
+            <button id="loginButton">Login</button>
+        </div>
+    </div>
+
+    <script>
+        var signupButton = document.getElementById('signupButton');
+        var loginButton = document.getElementById('loginButton');
+
+        signupButton.addEventListener('click', function() {
+            signupButton.style.backgroundColor = 'gray';
+            signupButton.disabled = true;
+        });
+
+        loginButton.addEventListener('click', function() {
+            loginButton.style.backgroundColor = 'gray';
+            loginButton.disabled = true;
+        });
+    </script>
+    <script>
+    var signupButton = document.getElementById('signupButton');
+    var loginButton = document.getElementById('loginButton');
+
+    signupButton.addEventListener('click', function() {
+        signupButton.style.backgroundColor = 'gray';
+        signupButton.disabled = true;
+        window.location.href = 'register';
+    });
+
+    loginButton.addEventListener('click', function() {
+        loginButton.style.backgroundColor = 'gray';
+        loginButton.disabled = true;
+        window.location.href = 'login';
+    });
+</script>
+
+</body>
+</html>

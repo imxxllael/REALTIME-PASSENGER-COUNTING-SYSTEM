@@ -1,0 +1,244 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,500;1,600&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 90vh;
+  background-color: white;
+  font-family: 'Poppins', sans-serif;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 250px;
+  padding: 15px;
+  background-color: white;
+  border-right: 1px solid black;
+  transition: all 0.5s ease;
+}
+
+nav.close {
+  width: 73px;
+  left: 0;
+}
+
+nav .logo-name {
+  display: flex;
+  align-items: center;
+  font-size: 15px;
+  text-align: center;
+  border-bottom-color: #121212;
+}
+
+nav .logo-name .logo_name {
+  margin-left: 5px;
+  font-size: 20px;
+  font-weight: 400;
+  color: black;
+  transition: all 0.5s ease;
+}
+
+nav.close .logo_name {
+  opacity: 0;
+  pointer-events: none;
+}
+
+nav .logo-image {
+  display: flex;
+  justify-content: center;
+  min-width: 45px;
+}
+
+nav .logo-image img {
+  width: 40px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+nav .items {
+  margin-top: 30px;
+  height: calc(100% - 90px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.items li {
+  list-style: none;
+}
+
+.items li a {
+  text-decoration: none;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.nav-links li a:hover:before {
+  content: "";
+  position: absolute;
+  left: -7px;
+  height: 5px;
+  width: 5px;
+  border-radius: 50%;
+  background-color: black;
+}
+
+.items li a i {
+  font-size: 24px;
+  min-width: 45px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #121212;
+}
+
+.items li a .link-name {
+  font-size: 18px;
+  font-weight: 400;
+  color: #121212;
+  transition: all 0.5s ease;
+}
+
+nav.close li a .link-name {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.nav-links li a:hover i,
+.nav-links li a:hover .link-name {
+  color: teal;
+}
+
+.items .logout {
+  padding-top: 10px;
+  border-top: 1px solid black;
+}
+
+.dashboard {
+  position: relative;
+  background-color: white;
+  left: 250px;
+  width: calc(100% - 250px);
+  padding: 15px;
+  transition: all 0.5s ease;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: calc(100vh);
+}
+
+nav.close ~ .dashboard {
+  left: 73px;
+  width: calc(100% - 73px);
+}
+
+.dashboard .top {
+  position: fixed;
+  top: 0;
+  display: flex;
+  align-items: center;
+  left: 250px;
+  width: calc(100% - 250px);
+  justify-content: space-between;
+  background-color: white;
+  padding: 10px 14px;
+  transition: all 0.5s ease;
+}
+
+nav.close ~ .dashboard .top {
+  left: 73px;
+  width: calc(100% - 73px);
+}
+
+.dashboard .top .sidebar-toggle {
+  font-size: 26px;
+  color: #121212;
+  cursor: pointer;
+  position: absolute;
+  left: 0;
+}
+
+#dashboard-container {
+  display: block;
+  text-align: center;
+  width: 1500px;
+  height: 750px;
+  padding-top: 30px;
+}
+
+#passenger-container {
+  display: block;
+  text-align: center;
+  width: 1500px;
+  height: 750px;
+  padding-top: 50px;
+}
+
+#location-container {
+  display: block;
+  text-align: center;
+  width: 1500px;
+  height: 750px;
+  padding-top: 50px;
+}
+
+#buses-container {
+  display: block;
+  text-align: center;
+  width: 1500px;
+  height: 750px;
+}
+
+#travel-logs-container {
+  display: block;
+  text-align: center;
+  width: 1500px;
+  height: 750px;
+  padding-top: 50px;
+}
+
+.photo {
+  margin-bottom: 20px;
+}
+
+.photo img {
+  width: 900px;
+  height: 400px;
+}
+
+.container-header span {
+  font-size: 40px;
+  font-weight: bold;
+}
+
+.container-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  padding-bottom: 20px;
+}
+
+.greeting {
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.datetime {
+  font-size: 18px;
+  margin-top: auto;
+}
